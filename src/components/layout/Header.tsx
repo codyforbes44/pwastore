@@ -28,9 +28,7 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between gap-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 shrink-0">
-          <div className="h-8 w-8 rounded-lg gradient-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-lg">P</span>
-          </div>
+          <img src="/icon-192.png" alt="PWA Store" className="h-8 w-8 rounded-lg" />
           <span className="font-bold text-xl hidden sm:block">PWA Store</span>
         </Link>
 
