@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Menu, X, User, LogOut, Heart, History, Settings, Plus } from 'lucide-react';
+import { Menu, X, User, LogOut, Heart, History, Settings, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { InstantSearch } from '@/components/search/InstantSearch';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,15 +16,7 @@ import { useAuth } from '@/hooks/useAuth';
 export function Header() {
   const navigate = useNavigate();
   const { user, profile, developer, signOut } = useAuth();
-  const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-    }
-  };
 
   const handleSignOut = async () => {
     await signOut();
@@ -43,18 +35,9 @@ export function Header() {
         </Link>
 
         {/* Search - Desktop */}
-        <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search apps..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-secondary border-border/50 focus:border-primary"
-            />
-          </div>
-        </form>
+        <div className="hidden md:block flex-1 max-w-md">
+          <InstantSearch />
+        </div>
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center gap-6">
@@ -168,29 +151,18 @@ export function Header() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-border/40 bg-background p-4 space-y-4 animate-slide-up">
-          <form onSubmit={handleSearch}>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search apps..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-          </form>
+          <InstantSearch />
           <nav className="flex flex-col gap-2">
             <Link
               to="/browse"
-              className="px-3 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+              className="px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Browse
             </Link>
             <Link
               to="/categories"
-              className="px-3 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+              className="px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Categories
@@ -198,7 +170,7 @@ export function Header() {
             {developer && (
               <Link
                 to="/developer/dashboard"
-                className="px-3 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                className="px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Dashboard
