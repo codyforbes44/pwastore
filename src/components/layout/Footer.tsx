@@ -9,9 +9,7 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="h-8 w-8 rounded-lg gradient-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">P</span>
-              </div>
+              <img src="/icon-192.png" alt="PWA Store" className="h-8 w-8 rounded-lg" />
               <span className="font-bold text-xl">PWA Store</span>
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
