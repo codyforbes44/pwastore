@@ -1,10 +1,10 @@
+import { forwardRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Star, Download, Heart, Share2 } from 'lucide-react';
 import { App } from '@/types/database';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
 import { toast } from 'sonner';
 
 interface AppCardProps {
@@ -14,7 +14,8 @@ interface AppCardProps {
   onToggleFavorite?: () => void;
 }
 
-export function AppCard({ app, variant = 'default', isFavorite, onToggleFavorite }: AppCardProps) {
+export const AppCard = forwardRef<HTMLAnchorElement, AppCardProps>(
+  function AppCard({ app, variant = 'default', isFavorite, onToggleFavorite }, ref) {
   const isFeatured = variant === 'featured';
   const isCompact = variant === 'compact';
   const [isHovered, setIsHovered] = useState(false);
@@ -43,6 +44,7 @@ export function AppCard({ app, variant = 'default', isFavorite, onToggleFavorite
 
   return (
     <Link
+      ref={ref}
       to={`/app/${app.slug}`}
       className={cn(
         "group block rounded-xl overflow-hidden transition-all duration-300",
@@ -205,4 +207,6 @@ export function AppCard({ app, variant = 'default', isFavorite, onToggleFavorite
       </div>
     </Link>
   );
-}
+});
+
+AppCard.displayName = 'AppCard';
