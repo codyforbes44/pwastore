@@ -1,6 +1,6 @@
 import { App } from '@/types/database';
 import { AppCard } from './AppCard';
-import { Skeleton } from '@/components/ui/skeleton';
+import { AppCardSkeleton } from '@/components/common/AppCardSkeleton';
 
 interface AppGridProps {
   apps: App[];
@@ -20,13 +20,8 @@ export function AppGrid({ apps, loading, variant = 'default', columns = 4 }: App
     return (
       <div className={`grid ${gridCols[columns]} gap-4`}>
         {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="rounded-xl overflow-hidden bg-card border border-border/50">
-            <Skeleton className="aspect-video md:aspect-square" />
-            <div className="p-4 space-y-2">
-              <Skeleton className="h-5 w-3/4" />
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-1/2" />
-            </div>
+          <div key={i} className={`opacity-0 animate-scale-in stagger-${Math.min(i + 1, 8)}`}>
+            <AppCardSkeleton variant={variant} />
           </div>
         ))}
       </div>
@@ -43,8 +38,13 @@ export function AppGrid({ apps, loading, variant = 'default', columns = 4 }: App
 
   return (
     <div className={`grid ${gridCols[columns]} gap-4`}>
-      {apps.map((app) => (
-        <AppCard key={app.id} app={app} variant={variant} />
+      {apps.map((app, i) => (
+        <div 
+          key={app.id} 
+          className={`opacity-0 animate-scale-in stagger-${Math.min(i + 1, 8)}`}
+        >
+          <AppCard app={app} variant={variant} />
+        </div>
       ))}
     </div>
   );
