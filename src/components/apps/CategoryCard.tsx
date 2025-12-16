@@ -1,9 +1,24 @@
 import { Link } from 'react-router-dom';
-import * as Icons from 'lucide-react';
 import { Category } from '@/types/database';
-import { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
+import { 
+  Folder, Gamepad2, Briefcase, Users, Film, Wrench, 
+  GraduationCap, Building2, Heart, type LucideIcon 
+} from 'lucide-react';
+
+// Safe icon map with only valid icon components
+const iconMap: Record<string, LucideIcon> = {
+  Folder,
+  Gamepad2,
+  Briefcase,
+  Users,
+  Film,
+  Wrench,
+  GraduationCap,
+  Building2,
+  Heart,
+};
 
 interface CategoryCardProps {
   category: Category;
@@ -12,10 +27,10 @@ interface CategoryCardProps {
 export function CategoryCard({ category }: CategoryCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   
-  // Dynamically get the icon component
-  const IconComponent = category.icon 
-    ? (Icons[category.icon as keyof typeof Icons] as LucideIcon) 
-    : Icons.Folder;
+  // Safe icon lookup with fallback
+  const IconComponent = category.icon && iconMap[category.icon] 
+    ? iconMap[category.icon] 
+    : Folder;
 
   return (
     <Link

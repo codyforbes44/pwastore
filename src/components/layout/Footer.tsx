@@ -17,10 +17,10 @@ export function Footer() {
             </p>
             <div className="flex gap-4">
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                <Twitter className="h-5 w-5" />
+                <span><Twitter className="h-5 w-5" /></span>
               </a>
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                <Github className="h-5 w-5" />
+                <span><Github className="h-5 w-5" /></span>
               </a>
             </div>
           </div>
